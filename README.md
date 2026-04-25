@@ -1,75 +1,8 @@
-# Nuxt Minimal Starter
+# 一个博文发布平台
+最近学web前端感觉学的还凑合了，也写好了我的blog项目的初版本。  
+但是这显然是不够的   
+由于服务器的问题我的blog网站只能静态SSG部署在服务器上，因此像用户注册和点赞等等功能显然是似了喵   
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
-
-## Setup
-
-Make sure to install dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+但是正好我小学期作业有个项目就是写个web网站，然后需要实现的功能刚好涵盖了这些，所以，这不是巧了吗  
+所以如你所见，这个就是我的小学期作业，我将通过这个项目学习SQLite和后端知识，实现用户登陆注册发布博文和个人页面   
+此外，本项目依旧是基于[Nuxt: The Progressive Web Framework](https://nuxt.com/) (v4.4.2)开发
