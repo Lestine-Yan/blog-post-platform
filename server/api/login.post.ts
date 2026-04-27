@@ -22,7 +22,7 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 401, message: '用户名或密码错误' })
   }
 
-  const token = generateToken(user.id, user.username)
+  const token = generateToken(user.id, user.username)//签发JWT
 
   return {
     token,

@@ -3,7 +3,8 @@
         <div class="m-0 flex w-auto px-0 ml-8">
                 <NuxtLink to="/" class = "text-white mr-4">首页</NuxtLink>
                 <div class="w-[80dvw]"></div>
-                <NuxtLink to="/login" class = "text-white ">登录</NuxtLink>
+                <NuxtLink to="/login" class = "text-white mr-4">登录</NuxtLink>
+                <NuxtLink to="/dashboard" class = "text-white">仪表盘</NuxtLink>
         </div>
     </div>
 </template>

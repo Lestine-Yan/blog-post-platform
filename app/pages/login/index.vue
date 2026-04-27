@@ -37,6 +37,8 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '~/stores/auth'
+const authStore = useAuthStore()
 const form = reactive({
     username: '',
     password: ''
@@ -46,8 +48,6 @@ const loading = ref(false)
 const errorMsg = ref('')
 
 const handleLogin = async () => {
-    errorMsg.value = ''
-
     if (!form.username || !form.password) {
         errorMsg.value = '用户名和密码不能为空'
         return
@@ -56,19 +56,7 @@ const handleLogin = async () => {
     loading.value = true
 
     try {
-        const res = await $fetch('/api/login', {
-            method: 'POST',
-            body: {
-                username: form.username,
-                password: form.password
-            }
-        })
-
-        const token = useCookie('token')
-        token.value = res.token
-
-        const user = useCookie('user')
-        user.value = JSON.stringify(res.user)
+        await authStore.login(form.username, form.password)
 
         navigateTo('/')
     } catch (error: any) {
