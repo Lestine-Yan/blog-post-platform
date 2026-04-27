@@ -25,7 +25,6 @@ export default defineEventHandler(async (event) => {
     const existing = db.prepare(
       'SELECT id FROM users WHERE username = ? OR email = ?'
     ).get(username, email)
-
     if (existing) {
       throw createError({ statusCode: 409, message: '用户名或邮箱已被注册' })
     }

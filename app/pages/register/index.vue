@@ -43,6 +43,8 @@
 </template>
 
 <script setup lang="ts">
+import { useAuthStore } from '~/stores/auth'
+const authStore = useAuthStore()
 const form = reactive({
     username: '',
     password: '',
@@ -53,8 +55,6 @@ const loading = ref(false)
 const errorMsg = ref('')
 
 const handleRegister = async () => {
-    errorMsg.value = ''
-
     if (!form.username || !form.password || !form.email) {
         errorMsg.value = '用户名、密码和邮箱不能为空'
         return
@@ -63,14 +63,7 @@ const handleRegister = async () => {
     loading.value = true
 
     try {
-        const res = await $fetch('/api/register', {
-            method: 'POST',
-            body: {
-                username: form.username,
-                email: form.email,
-                password: form.password
-            }
-        })
+        await authStore.register(form.username, form.email, form.password)
 
         navigateTo('/login')
     } catch (error: any) {
