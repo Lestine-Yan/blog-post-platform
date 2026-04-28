@@ -26,3 +26,7 @@ data/*.db
 .env
 .env.*
 !.env.example
+
+# Prisma
+/app/generated/prisma
+prisma/migrations/*

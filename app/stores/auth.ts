@@ -5,6 +5,14 @@ interface User {
   username: string
   email: string
 }
+interface LoginResponse {
+  token: string
+  user: User
+}
+interface RegisterResponse {
+  message: string
+  user?: User
+}
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(null)
@@ -12,7 +20,7 @@ export const useAuthStore = defineStore('auth', () => {
   const isAuthenticated = computed(() => !!token.value)
 
   async function register(username: string, email: string, password: string) {
-    const data = await $fetch('/api/register', {
+    const data = await $fetch<RegisterResponse>('/api/register', {
       method: 'POST',
       body: { username, email, password }
     })
@@ -20,7 +28,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   async function login(username: string, password: string) {
-    const data: { token: string; user: User } = await $fetch('/api/login', {
+    const data = await $fetch<LoginResponse>('/api/login', {
       method: 'POST',
       body: { username, password }
     })
