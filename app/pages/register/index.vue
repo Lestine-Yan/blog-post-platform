@@ -72,4 +72,8 @@ const handleRegister = async () => {
         loading.value = false
     }
 }
+useSeoMeta({
+  title: '注册',
+  description: '注册账号'
+})
 </script>

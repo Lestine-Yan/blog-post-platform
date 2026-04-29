@@ -23,11 +23,11 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(127, 29, 29, 0.5);
+  background: rgba(71, 105, 177, 0.5);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(127, 29, 29, 0.8);
+  background: rgba(71, 105, 177, 0.5);
 }
 </style>

@@ -65,4 +65,8 @@ const handleLogin = async () => {
         loading.value = false
     }
 }
+useSeoMeta({
+  title: '登录',
+  description: '登录账号'
+})
 </script>
