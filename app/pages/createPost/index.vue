@@ -201,7 +201,7 @@ const submitPost = async () => {
     successMessage.value = '文章发布成功'
     resetForm()
 
-    await router.push(`/posts/${result.slug}`)
+    await router.push(`/`)
   } catch (error: any) {
     errorMessage.value = error?.data?.message || error?.data?.statusMessage || '文章发布失败'
   } finally {
