@@ -50,18 +50,21 @@ export interface CreatePostPayload {
   description?: string
   content: string
   published?: boolean
-  authorId: number
 }
 
 export interface CreatePostResponse {
-  id: number
-  title: string
-  slug: string
-  description?: string | null
-  content: string
-  createdAt: string
-  updatedAt?: string
-  published?: boolean
-  likeCount?: number
-  authorId?: number | null
+  success: boolean
+  post: {
+    id: number
+    title: string
+    slug: string
+    description?: string | null
+    content: string
+    createdAt: string
+    updatedAt?: string
+    published?: boolean
+    likeCount?: number
+    authorId?: number | null
+    author?: Author | null
+  }
 }

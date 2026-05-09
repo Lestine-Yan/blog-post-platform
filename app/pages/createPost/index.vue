@@ -1,6 +1,6 @@
 <template>
   <main class="min-h-screen bg-gray-50">
-    <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
+    <div class="w-[720px] mx-auto px-4 py-10 sm:px-6 lg:px-8">
       <div class="mb-8">
         <p class="text-sm font-medium text-blue-600">Admin</p>
         <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900">
@@ -39,9 +39,6 @@
           当前发布者：
           <span class="font-medium text-gray-900">
             {{ authStore.user.username }}
-          </span>
-          <span class="ml-2 text-gray-500">
-            (ID: {{ authStore.user.id }})
           </span>
         </div>
 
@@ -162,7 +159,7 @@ const submitPost = async () => {
   errorMessage.value = ''
   successMessage.value = ''
 
-  if (!authStore.isAuthenticated || !authStore.user?.id) {
+  if (!authStore.isAuthenticated || !authStore.token) {
     errorMessage.value = '请先登录后再发布文章'
     return
   }
@@ -181,21 +178,18 @@ const submitPost = async () => {
     title: form.title.trim(),
     description: form.description.trim() || undefined,
     content: form.content,
-    published: form.published,
-    authorId: authStore.user.id,
+    published: form.published
   }
 
   try {
     submitting.value = true
 
-    const result = await $fetch<CreatePostResponse>('/api/posts/create', {
+    await $fetch<CreatePostResponse>('/api/posts/create', {
       method: 'POST',
       body: payload,
-      headers: authStore.token
-        ? {
-            Authorization: `Bearer ${authStore.token}`
-          }
-        : undefined
+      headers: {
+        Authorization: `Bearer ${authStore.token}`
+      }
     })
 
     successMessage.value = '文章发布成功'

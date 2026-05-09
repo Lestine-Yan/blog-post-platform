@@ -3,7 +3,7 @@
     <h3 class="mb-4 text-xl font-semibold text-gray-900">发表评论</h3>
 
     <div
-      v-if="!authStore.isAuthenticated || !authStore.user"
+      v-if="!authStore.isAuthenticated || !authStore.token"
       class="rounded-2xl border border-amber-200 bg-amber-50 p-6"
     >
       <p class="text-sm text-amber-800">
@@ -83,7 +83,7 @@ const submitComment = async () => {
   errorMessage.value = ''
   successMessage.value = ''
 
-  if (!authStore.isAuthenticated || !authStore.user?.id) {
+  if (!authStore.isAuthenticated || !authStore.token) {
     errorMessage.value = '请先登录后再发表评论'
     return
   }
@@ -99,14 +99,11 @@ const submitComment = async () => {
     await $fetch(`/api/posts/${props.postId}/comments/create`, {
       method: 'POST',
       body: {
-        content: content.value,
-        authorId: authStore.user.id
+        content: content.value
       },
-      headers: authStore.token
-        ? {
-            Authorization: `Bearer ${authStore.token}`
-          }
-        : undefined
+      headers: {
+        Authorization: `Bearer ${authStore.token}`
+      }
     })
 
     content.value = ''
