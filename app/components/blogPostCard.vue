@@ -1,5 +1,5 @@
 <template>
-  <article class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+  <article class="w-[720px] rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
     <NuxtLink :to="`/posts/${post.slug}`" class="group block">
       <h2 class="text-2xl font-bold text-gray-900 group-hover:text-blue-600">
         {{ post.title }}
