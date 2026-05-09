@@ -1,6 +1,8 @@
-import { JsonWebTokenError, NotBeforeError, TokenExpiredError } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import { prisma } from '../../../../utils/prisma'
 import { verifyToken } from '../../../../utils/auth'
+
+const { JsonWebTokenError, NotBeforeError, TokenExpiredError } = jwt
 
 export default defineEventHandler(async (event) => {
   const postId = getRouterParam(event, 'id')

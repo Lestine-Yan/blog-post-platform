@@ -1,7 +1,9 @@
 import slugify from 'slugify'
-import { JsonWebTokenError, NotBeforeError, TokenExpiredError } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import { prisma } from '../../utils/prisma'
 import { verifyToken } from '../../utils/auth'
+
+const { JsonWebTokenError, NotBeforeError, TokenExpiredError } = jwt
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
