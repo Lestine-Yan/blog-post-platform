@@ -1,8 +1,5 @@
-import jwt from 'jsonwebtoken'
 import { prisma } from '../../../../utils/prisma'
-import { verifyToken } from '../../../../utils/auth'
-
-const { JsonWebTokenError, NotBeforeError, TokenExpiredError } = jwt
+import { requireAuthUser } from '../../../../utils/auth'
 
 export default defineEventHandler(async (event) => {
   const postId = getRouterParam(event, 'id')
@@ -17,68 +14,13 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const authHeader = getHeader(event, 'authorization')
-  const token = authHeader?.startsWith('Bearer ')
-    ? authHeader.slice(7)
-    : ''
-
-  if (!token) {
-    throw createError({
-      statusCode: 401,
-      message: '请先登录后再发表评论'
-    })
-  }
-
-  let tokenPayload: { id: number; username: string }
-
-  try {
-    tokenPayload = verifyToken(token)
-  } catch (error) {
-    if (error instanceof TokenExpiredError) {
-      throw createError({
-        statusCode: 401,
-        message: '登录已过期，请重新登录'
-      })
-    }
-
-    if (error instanceof NotBeforeError) {
-      throw createError({
-        statusCode: 401,
-        message: '登录凭证尚未生效'
-      })
-    }
-
-    if (error instanceof JsonWebTokenError) {
-      throw createError({
-        statusCode: 401,
-        message: '登录凭证无效，请重新登录'
-      })
-    }
-
-    throw error
-  }
-
-  const author = await prisma.user.findUnique({
-    where: { username: tokenPayload.username },
-    select: {
-      id: true,
-      username: true,
-      avatar: true
-    }
-  })
-
-  if (!author) {
-    throw createError({
-      statusCode: 401,
-      message: '登录用户不存在'
-    })
-  }
+  const authUser = requireAuthUser(event)
 
   const comment = await prisma.comment.create({
     data: {
       content,
       postId: Number(postId),
-      authorId: author.id
+      authorId: authUser.id
     },
     include: {
       author: {
