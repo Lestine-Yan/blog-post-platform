@@ -68,3 +68,39 @@ export interface CreatePostResponse {
     author?: Author | null
   }
 }
+
+export interface DashboardPostItem {
+  id: number
+  title: string
+  slug: string
+  description?: string | null
+  published: boolean
+  createdAt: string
+  updatedAt?: string
+  likeCount: number
+  _count?: {
+    comments: number
+  }
+}
+
+export interface DashboardMeResponse {
+  user: Author & {
+    email?: string
+    createdAt?: string
+  }
+  posts: DashboardPostItem[]
+}
+
+export interface UpdatePostVisibilityResponse {
+  success: boolean
+  post: {
+    id: number
+    published: boolean
+    updatedAt?: string
+  }
+}
+
+export interface DeletePostResponse {
+  success: boolean
+  id: number
+}
